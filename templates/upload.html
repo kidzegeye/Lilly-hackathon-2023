@@ -1,0 +1,15 @@
+<html>
+  <head> </head>
+  <body>
+    <form method="post" action="/results">
+      <label for="pdf">Upload health data pdf:</label>
+
+      <input required type="file" id="pdf" name="pdf" accept=".pdf" />
+      <input
+        type="submit"
+        value="Send File"
+        formenctype="multipart/form-data"
+      />
+    </form>
+  </body>
+</html>

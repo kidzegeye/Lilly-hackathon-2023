@@ -1,0 +1,9 @@
+transformers
+tqdm
+pandas
+requests
+flask
+torch
+pyPDF2
+pdfminer.six
+werkzeug

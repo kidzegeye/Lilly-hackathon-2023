@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <link
+      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <div id="vector" style="display: none">{{ vector }}</div>
+  </head>
+  <body>
+    <h2 style="text-align: center">Recommended Clinical Trials</h2>
+    {{ tables|safe }}
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#table").DataTable({
+          ordering: false,
+          select: true,
+        });
+        $("#table > thead > tr").each(function () {
+          id = $(this)[0];
+          $(this).append(`<td></td>`);
+        });
+        $("#table > tbody > tr").each(function () {
+          id = $(this)[0].cells[0].innerText;
+          $(this).append(`<td><button class='enroll' id='${id}'>Enroll</td>`);
+        });
+        $(".enroll").click(function () {
+          user_vec = $("#vector")[0].innerText;
+
+          pid = window.location.pathname.split("/")[1];
+          id = $(this).attr("id");
+          $.post({
+            url: `http://localhost:8000/select/${id}`,
+            data: {
+              vector: user_vec,
+            },
+            success: function (response) {
+              window.location.replace("http://localhost:8000/");
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
